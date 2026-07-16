@@ -9,8 +9,9 @@ import Services from './components/Services'
 import Portfolio from './components/Portfolio'
 import CTABanner from './components/CTABanner'
 import FAQ from './components/FAQ'
-import Contact from './components/Contact'
+// import Contact from './components/Contact'
 import Footer from './components/Footer'
+import WhatsAppFloat from './components/WhatsAppFloat'
 
 export default function App() {
   useEffect(() => {
@@ -41,8 +42,9 @@ export default function App() {
       <Portfolio />
       <CTABanner />
       <FAQ />
-      <Contact />
+      {/* <Contact /> */}
       <Footer />
+      <WhatsAppFloat />
     </div>
   )
 }

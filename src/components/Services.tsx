@@ -29,73 +29,103 @@ const services = [
   },
 ]
 
+function ServiceCard({
+  service,
+  index,
+}: {
+  service: (typeof services)[number]
+  index: number
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 40 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.5, delay: index * 0.15 }}
+    >
+      <div className="service-card relative rounded-[10px] p-5 sm:p-6 md:p-8 flex flex-col overflow-hidden cursor-default h-full">
+        <div
+          className="service-card-bg absolute inset-0"
+          style={{ backgroundColor: '#F9F9F9' }}
+          aria-hidden
+        />
+
+        <div className="relative z-10 flex flex-col h-full">
+          <span className="text-[12px] sm:text-[13px] md:text-[14px] font-medium text-[#999999] mb-1.5 sm:mb-2">
+            {service.number}
+          </span>
+          <h3 className="text-[20px] sm:text-[22px] md:text-[26px] font-semibold text-[#2F6BFF] mb-3 sm:mb-4 tracking-tight">
+            {service.title}
+          </h3>
+          <p className="text-[12px] sm:text-[13px] text-[#333333] leading-[1.6] font-medium mb-6 sm:mb-8">
+            {service.description}
+          </p>
+
+          <div className="flex flex-wrap gap-1.5 sm:gap-2 mt-auto">
+            {service.tags.map((tag) => (
+              <span
+                key={tag}
+                className="text-[9px] sm:text-[10px] font-semibold text-[#2F6BFF] bg-[#EAF3FF] px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-full"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </motion.div>
+  )
+}
+
 export default function Services() {
   const containerRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
     target: containerRef,
-    offset: ["start end", "end start"]
+    offset: ['start end', 'end start'],
   })
-  
+
   const y = useTransform(scrollYProgress, [0, 1], [-400, 200])
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
 
   return (
-    <section ref={containerRef} id="solutions" className="relative py-28 overflow-hidden bg-[#7895B2]">
-      {/* Background Image Setup */}
+    <section
+      ref={containerRef}
+      id="solutions"
+      className="relative py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden bg-[#7895B2]"
+    >
       <motion.div
         style={{ y, scale }}
         className="absolute inset-0 pointer-events-none"
       >
-        <img 
-          src={background} 
-          alt="Background" 
-          className="absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[1550px] max-w-none pointer-events-none select-none rotate-90 opacity-80"
+        <img
+          src={background}
+          alt=""
+          className="absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[1400px] sm:w-[1200px] md:w-[1550px] max-w-none pointer-events-none select-none rotate-90 opacity-80"
         />
       </motion.div>
       <div className="absolute inset-0 bg-black/40 pointer-events-none" />
-      <div className="max-w-[1100px] relative z-10 mx-auto px-8">
-        <motion.div 
-          className="mb-10 flex flex-col gap-1"
+
+      <div className="page-container relative z-10">
+        <motion.div
+          className="mb-6 sm:mb-8 md:mb-10 flex flex-col gap-1"
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
+          viewport={{ once: true, margin: '-100px' }}
           transition={{ duration: 0.6 }}
         >
-          <span className="text-[12px] font-semibold tracking-wider text-white/90 uppercase">Our Solutions</span>
-          <h2 className="text-[32px] lg:text-[38px] font-bold text-white leading-[1.2] tracking-tight">
-            One Partner,<br />
+          <span className="text-[11px] sm:text-[12px] font-semibold tracking-wider text-white/90 uppercase">
+            Our Solutions
+          </span>
+          <h2 className="text-[26px] sm:text-[30px] md:text-[34px] lg:text-[38px] font-bold text-white leading-[1.2] tracking-tight">
+            One Partner,
+            <br />
             <span className="italic">Four Corporate Needs.</span>
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {services.map((service, i) => (
-            <motion.div
-              key={service.number}
-              className="rounded-[20px] p-8 flex flex-col bg-white shadow-sm hover:shadow-xl transition-shadow cursor-default"
-              initial={{ opacity: 0, y: 40 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-50px" }}
-              transition={{ duration: 0.5, delay: i * 0.15 }}
-              whileHover={{ y: -5 }}
-            >
-              <span className="text-[14px] font-medium text-[#999999] mb-2">{service.number}</span>
-              <h3 className="text-[26px] font-semibold text-[#2F6BFF] mb-4 tracking-tight">{service.title}</h3>
-              <p className="text-[13px] text-[#333333] leading-[1.6] font-medium mb-8">
-                {service.description}
-              </p>
-              
-              <div className="flex flex-wrap gap-2 mt-auto">
-                {service.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="text-[10px] font-semibold text-[#2F6BFF] bg-[#EAF3FF] px-3 py-1.5 rounded-full"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
+            <ServiceCard key={service.number} service={service} index={i} />
           ))}
         </div>
       </div>
