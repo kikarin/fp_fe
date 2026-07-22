@@ -15,9 +15,9 @@ export default function Contact() {
     formState: { errors },
   } = useForm<FormData>()
 
-  const onSubmit = (data: FormData) => {
-    console.log(data)
-    alert("Message sent successfully!")
+  const onSubmit = (_data: FormData) => {
+    // Wire to a backend endpoint before enabling this form in production.
+    alert('Message sent successfully!')
   }
 
   return (

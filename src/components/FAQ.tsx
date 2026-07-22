@@ -1,39 +1,64 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown } from 'lucide-react'
+import { fetchFaqs, type FaqItem } from '../lib/strapi'
 
-const faqs = [
+const fallbackFaqs: FaqItem[] = [
   {
-    q: 'Who is Firstpective?',
-    a: 'Firstpective is a creative communication company specializing in corporate content production across Indonesia. We combine human creativity with AI-augmented workflows to produce content at scale.',
+    id: 1,
+    question: 'Who is Firstpective?',
+    answer:
+      'Firstpective is a creative communication company specializing in corporate content production across Indonesia. We combine human creativity with AI-augmented workflows to produce content at scale.',
   },
   {
-    q: 'What services does Firstpective offer for corporate companies?',
-    a: 'We offer four core services: Video Production, Brand & Marketing, Corporate Report design and production, and Internal Communications. Each service is designed for the specific needs of corporate clients.',
+    id: 2,
+    question: 'What services does Firstpective offer for corporate companies?',
+    answer:
+      'We offer four core services: Video Production, Brand & Marketing, Corporate Report design and production, and Internal Communications. Each service is designed for the specific needs of corporate clients.',
   },
   {
-    q: 'What types of companies does Firstpective work with?',
-    a: 'We work primarily with listed companies, large-scale corporations, financial institutions, and government-linked enterprises across Indonesia. Our clients span banking, healthcare, energy, and FMCG sectors.',
+    id: 3,
+    question: 'What types of companies does Firstpective work with?',
+    answer:
+      'We work primarily with listed companies, large-scale corporations, financial institutions, and government-linked enterprises across Indonesia. Our clients span banking, healthcare, energy, and FMCG sectors.',
   },
   {
-    q: 'What is Simsomi and how does it work?',
-    a: 'Simsomi is our proprietary AI content performance platform. It allows teams to simulate how content will perform before publishing — scoring messaging, brand safety, and audience alignment to reduce risk.',
+    id: 4,
+    question: 'What is Simsomi and how does it work?',
+    answer:
+      'Simsomi is our proprietary AI content performance platform. It allows teams to simulate how content will perform before publishing — scoring messaging, brand safety, and audience alignment to reduce risk.',
   },
   {
-    q: 'Does Firstpective produce commercial video and AI video for corporations?',
-    a: 'Yes. We produce everything from traditional commercial shoots to AI-augmented video at scale. Our video pipeline is built for high-volume output without sacrificing brand consistency.',
+    id: 5,
+    question: 'Does Firstpective produce commercial video and AI video for corporations?',
+    answer:
+      'Yes. We produce everything from traditional commercial shoots to AI-augmented video at scale. Our video pipeline is built for high-volume output without sacrificing brand consistency.',
   },
   {
-    q: 'How is Firstpective different from a regular production house?',
-    a: 'We integrate strategy, AI tooling, and execution under one roof. Unlike traditional production houses, we validate content performance before delivery and offer end-to-end brand consistency across all formats.',
+    id: 6,
+    question: 'How is Firstpective different from a regular production house?',
+    answer:
+      'We integrate strategy, AI tooling, and execution under one roof. Unlike traditional production houses, we validate content performance before delivery and offer end-to-end brand consistency across all formats.',
   },
   {
-    q: 'How do we start working with Firstpective?',
-    a: 'Simply reach out via our contact form or email. We begin with a discovery session to understand your brand objectives, then propose a tailored scope and timeline for your first project.',
+    id: 7,
+    question: 'How do we start working with Firstpective?',
+    answer:
+      'Simply reach out via our contact form or email. We begin with a discovery session to understand your brand objectives, then propose a tailored scope and timeline for your first project.',
   },
 ]
 
-function FAQItem({ q, a, isOpen, onToggle }: { q: string; a: string; isOpen: boolean; onToggle: () => void }) {
+function FAQItem({
+  q,
+  a,
+  isOpen,
+  onToggle,
+}: {
+  q: string
+  a: string
+  isOpen: boolean
+  onToggle: () => void
+}) {
   return (
     <motion.div
       className="border border-[#EEEEEE] rounded-[12px] sm:rounded-[16px] overflow-hidden bg-white"
@@ -76,6 +101,21 @@ function FAQItem({ q, a, isOpen, onToggle }: { q: string; a: string; isOpen: boo
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(null)
+  const [faqs, setFaqs] = useState<FaqItem[]>(fallbackFaqs)
+
+  useEffect(() => {
+    let active = true
+    fetchFaqs()
+      .then((data) => {
+        if (active && data.length > 0) setFaqs(data)
+      })
+      .catch(() => {
+        // keep fallback
+      })
+    return () => {
+      active = false
+    }
+  }, [])
 
   return (
     <section id="faq" className="py-16 sm:py-20 md:py-24 bg-[#F9F9F9] border-y border-[#EEEEEE]">
@@ -99,9 +139,9 @@ export default function FAQ() {
         <div className="flex flex-col gap-2.5 sm:gap-3">
           {faqs.map((item, i) => (
             <FAQItem
-              key={i}
-              q={item.q}
-              a={item.a}
+              key={item.id}
+              q={item.question}
+              a={item.answer}
               isOpen={openIndex === i}
               onToggle={() => setOpenIndex(openIndex === i ? null : i)}
             />

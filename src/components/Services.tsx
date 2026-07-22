@@ -1,31 +1,51 @@
-import { useRef } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import background from '../assets/bg/bg-hero.png'
+import { fetchServices, type ServiceItem } from '../lib/strapi'
 
-const services = [
+const fallbackServices: ServiceItem[] = [
   {
+    id: 1,
     number: '01',
     title: 'Video Production',
-    description: 'Corporate video produced at scale — from commercial campaigns to AI-powered content series — maintaining brand consistency across every format, every channel, every time.',
+    description:
+      'Corporate video produced at scale — from commercial campaigns to AI-powered content series — maintaining brand consistency across every format, every channel, every time.',
     tags: ['Commercial Video', 'AI Video', 'Content Video', 'Company Profile', 'Manifesto'],
   },
   {
+    id: 2,
     number: '02',
     title: 'Brand & Marketing',
-    description: 'End-to-end campaign production and strategic communications — from concept to placement, with AI simulation validating performance before every launch.',
-    tags: ['Campaign Development', 'AI Content Simulation', 'Digital Presence', 'Creative Production', 'Media Relation & Training'],
+    description:
+      'End-to-end campaign production and strategic communications — from concept to placement, with AI simulation validating performance before every launch.',
+    tags: [
+      'Campaign Development',
+      'AI Content Simulation',
+      'Digital Presence',
+      'Creative Production',
+      'Media Relation & Training',
+    ],
   },
   {
+    id: 3,
     number: '03',
     title: 'Corporate Report',
-    description: 'Full editorial design and production aligned with the latest OJK regulatory framework (POJK). From financial data visualization to narrative storytelling, we produce reports that satisfy regulators and build investor confidence simultaneously.',
+    description:
+      'Full editorial design and production aligned with the latest OJK regulatory framework (POJK). From financial data visualization to narrative storytelling, we produce reports that satisfy regulators and build investor confidence simultaneously.',
     tags: ['Annual Report', 'Sustainability Report'],
   },
   {
+    id: 4,
     number: '04',
     title: 'Internal Communications',
-    description: 'Aligning your people with your brand — internal publications, culture programs, and employee engagement content produced with the same quality as your external output.',
-    tags: ['Internal Publication', 'Culture Communication Program', 'Training Material', 'Employee Engagement'],
+    description:
+      'Aligning your people with your brand — internal publications, culture programs, and employee engagement content produced with the same quality as your external output.',
+    tags: [
+      'Internal Publication',
+      'Culture Communication Program',
+      'Training Material',
+      'Employee Engagement',
+    ],
   },
 ]
 
@@ -33,7 +53,7 @@ function ServiceCard({
   service,
   index,
 }: {
-  service: (typeof services)[number]
+  service: ServiceItem
   index: number
 }) {
   return (
@@ -79,6 +99,7 @@ function ServiceCard({
 
 export default function Services() {
   const containerRef = useRef<HTMLElement>(null)
+  const [services, setServices] = useState<ServiceItem[]>(fallbackServices)
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start end', 'end start'],
@@ -86,6 +107,20 @@ export default function Services() {
 
   const y = useTransform(scrollYProgress, [0, 1], [-400, 200])
   const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
+
+  useEffect(() => {
+    let active = true
+    fetchServices()
+      .then((data) => {
+        if (active && data.length > 0) setServices(data)
+      })
+      .catch(() => {
+        // keep fallback
+      })
+    return () => {
+      active = false
+    }
+  }, [])
 
   return (
     <section
@@ -125,7 +160,7 @@ export default function Services() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-3 sm:gap-4">
           {services.map((service, i) => (
-            <ServiceCard key={service.number} service={service} index={i} />
+            <ServiceCard key={service.id} service={service} index={i} />
           ))}
         </div>
       </div>

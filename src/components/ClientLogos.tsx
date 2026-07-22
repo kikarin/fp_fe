@@ -1,5 +1,6 @@
-import { Fragment } from 'react'
+import { Fragment, useEffect, useState } from 'react'
 import { motion } from 'framer-motion'
+import { fetchClients, type ClientLogo } from '../lib/strapi'
 import AllianzLogo from '../assets/klien/Firstpective_Cient_Artboard-1.png'
 import BTNLogo from '../assets/klien/Firstpective_Cient_Artboard-2.png'
 import BRILogo from '../assets/klien/Firstpective_Cient_Artboard-3.png'
@@ -8,14 +9,14 @@ import KimiaFarmaLogo from '../assets/klien/Firstpective_Cient_Artboard-5.png'
 import WintermarLogo from '../assets/klien/Firstpective_Cient_Artboard-6.png'
 import AncoraLogo from '../assets/klien/Firstpective_Cient_Artboard-7.png'
 
-const logos = [
-  { src: AllianzLogo, alt: 'Allianz', w: 140 },
-  { src: BTNLogo, alt: 'BTN', w: 90 },
-  { src: BRILogo, alt: 'BRI', w: 120 },
-  { src: TBSLogo, alt: 'TBS', w: 110 },
-  { src: KimiaFarmaLogo, alt: 'Kimia Farma', w: 150 },
-  { src: WintermarLogo, alt: 'Wintermar', w: 160 },
-  { src: AncoraLogo, alt: 'Ancora', w: 140 },
+const fallbackLogos: ClientLogo[] = [
+  { id: 1, src: AllianzLogo, name: 'Allianz', width: 140 },
+  { id: 2, src: BTNLogo, name: 'BTN', width: 90 },
+  { id: 3, src: BRILogo, name: 'BRI', width: 120 },
+  { id: 4, src: TBSLogo, name: 'TBS', width: 110 },
+  { id: 5, src: KimiaFarmaLogo, name: 'Kimia Farma', width: 150 },
+  { id: 6, src: WintermarLogo, name: 'Wintermar', width: 160 },
+  { id: 7, src: AncoraLogo, name: 'Ancora', width: 140 },
 ]
 
 function chunk<T>(items: T[], size: number): T[][] {
@@ -26,7 +27,15 @@ function chunk<T>(items: T[], size: number): T[][] {
   return rows
 }
 
-function LogoGrid({ perRow, colsClass }: { perRow: number; colsClass: string }) {
+function LogoGrid({
+  logos,
+  perRow,
+  colsClass,
+}: {
+  logos: ClientLogo[]
+  perRow: number
+  colsClass: string
+}) {
   const rows = chunk(logos, perRow)
 
   return (
@@ -38,20 +47,19 @@ function LogoGrid({ perRow, colsClass }: { perRow: number; colsClass: string }) 
           >
             {row.map((logo) => (
               <div
-                key={logo.alt}
+                key={logo.id}
                 className="flex items-center justify-center h-12 sm:h-16 md:h-20 px-2 w-full"
               >
                 <img
                   src={logo.src}
-                  alt={logo.alt}
-                  style={{ width: `${logo.w}px` }}
+                  alt={logo.name}
+                  style={{ width: `${logo.width}px` }}
                   className="max-w-[75%] sm:max-w-[85%] md:max-w-none max-h-10 sm:max-h-14 md:max-h-16 w-auto object-contain"
                 />
               </div>
             ))}
           </div>
 
-          {/* Garis antar baris — mengikuti jumlah row yang terbentuk */}
           {rowIndex < rows.length - 1 && (
             <div className="border-t border-[#E5E5E5]" />
           )}
@@ -63,6 +71,22 @@ function LogoGrid({ perRow, colsClass }: { perRow: number; colsClass: string }) 
 }
 
 export default function ClientLogos() {
+  const [logos, setLogos] = useState<ClientLogo[]>(fallbackLogos)
+
+  useEffect(() => {
+    let active = true
+    fetchClients()
+      .then((data) => {
+        if (active && data.length > 0) setLogos(data)
+      })
+      .catch(() => {
+        // keep fallback
+      })
+    return () => {
+      active = false
+    }
+  }, [])
+
   return (
     <section className="py-12 sm:py-16 md:py-20 bg-white">
       <motion.div
@@ -76,14 +100,12 @@ export default function ClientLogos() {
           Trusted by corporations and listed companies across Indonesia
         </p>
 
-        {/* Mobile / tablet: 2 logo per baris */}
         <div className="md:hidden">
-          <LogoGrid perRow={2} colsClass="grid-cols-2" />
+          <LogoGrid logos={logos} perRow={2} colsClass="grid-cols-2" />
         </div>
 
-        {/* Desktop: 4 logo per baris (sisa di baris terakhir) */}
         <div className="hidden md:block">
-          <LogoGrid perRow={4} colsClass="grid-cols-4" />
+          <LogoGrid logos={logos} perRow={4} colsClass="grid-cols-4" />
         </div>
       </motion.div>
     </section>
