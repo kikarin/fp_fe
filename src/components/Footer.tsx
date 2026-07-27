@@ -24,7 +24,7 @@ export default function Footer() {
           <p className="text-[12px] sm:text-[13px] text-white/60 leading-[1.6] max-w-[280px]">
             Fresh Perspective to stay relevant.
             <br />
-            Production house & communication house
+            Creative Communication & Production House
           </p>
 
           <div className="mt-4 sm:mt-8 flex flex-col gap-3">
@@ -57,10 +57,11 @@ export default function Footer() {
           <ul className="flex flex-col gap-3 sm:gap-4">
             {[
               { label: 'About Us', href: '#about us' },
-              { label: 'Solutions', href: '#solutions' },
+              { label: 'AI Video', href: '#ai video' },
               { label: 'AI Creative Boost', href: '#ai creative boost' },
+              { label: 'Solutions', href: '#solutions' },
               { label: 'Works', href: '#work' },
-              { label: 'Contact', href: '#contact' },
+              { label: 'FAQ', href: '#faq' }
             ].map((item) => (
               <li key={item.label}>
                 <a href={item.href} className="text-[12px] sm:text-[13px] text-white/60 hover:text-white transition-colors">
