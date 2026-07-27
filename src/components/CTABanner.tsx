@@ -2,6 +2,8 @@ import { useRef } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import bgCTA from '../assets/bg/bg-hero.png'
 
+const WA_NUMBER = '6281291578589'
+
 export default function CTABanner() {
   const containerRef = useRef<HTMLElement>(null)
   const { scrollYProgress } = useScroll({
@@ -21,7 +23,7 @@ export default function CTABanner() {
         <img
           src={bgCTA}
           alt=""
-          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[600px] md:w-[1000px] lg:w-[1500px] max-w-none pointer-events-none select-none"
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[600px] md:w-[1000px] lg:w-[1800px] max-w-none pointer-events-none select-none"
         />
       </motion.div>
 
@@ -41,20 +43,25 @@ export default function CTABanner() {
           We make sure it says the right thing — consistently, over time. Let&apos;s start with a conversation.
         </p>
         <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mt-2 w-full sm:w-auto px-2 sm:px-0">
-          <motion.button
+          <motion.a
+            href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo, saya ingin mendiskusikan project baru.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="bg-[#2F6BFF] text-white text-[13px] sm:text-[14px] font-semibold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full transition-colors w-full sm:w-auto"
             whileHover={{ scale: 1.05, backgroundColor: '#1a55e8' }}
             whileTap={{ scale: 0.95 }}
           >
             Start a Project
-          </motion.button>
-          <motion.button
+          </motion.a>
+          <motion.a
+            href="#work"
+            rel="noopener noreferrer"
             className="bg-white text-[#111111] text-[13px] sm:text-[14px] font-semibold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full border border-[#E0E0E0] hover:border-[#2F6BFF] hover:text-[#2F6BFF] transition-colors w-full sm:w-auto"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
             See Our Work
-          </motion.button>
+          </motion.a>
         </div>
       </motion.div>
     </section>

@@ -2,6 +2,8 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import CountUp from 'react-countup'
 import Background from '../assets/bg/bg.jpeg'
 
+const WA_NUMBER = '6281291578589'
+
 const stats = [
   { value: 2012, prefix: '', suffix: '', label: 'Year we started partnering with corporate Indonesia' },
   { value: 50, prefix: '', suffix: '+', label: 'Corporate client served across sectors' },
@@ -56,12 +58,22 @@ export default function Hero() {
             Commercial Video Production · AI Video Production · Digital Content Development & Production · Brand & Marketing Kit · Internal Communication
           </p>
           <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 mt-2">
-            <button className="bg-[#2F6BFF] text-white text-[13px] sm:text-[14px] font-semibold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full hover:bg-[#1a55e8] transition-colors w-full sm:w-auto">
+            {/* Direct ke WA */}
+            <a
+              href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo, saya ingin mendiskusikan project baru.')}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="bg-[#2F6BFF] text-white text-[13px] sm:text-[14px] font-semibold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full hover:bg-[#1a55e8] transition-colors w-full sm:w-auto text-center inline-flex justify-center items-center"
+            >
               Start a Project
-            </button>
-            <button className="text-[13px] sm:text-[14px] font-semibold text-[#111111] px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-gray-300 hover:bg-white transition-colors w-full sm:w-auto">
+            </a>
+            {/* Direct ke Component Work */}
+            <a
+              href="#work"
+              className="text-[13px] sm:text-[14px] font-semibold text-[#111111] px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-gray-300 hover:bg-white transition-colors w-full sm:w-auto text-center inline-flex justify-center items-center"
+            >
               See Our Work
-            </button>
+            </a>
           </div>
         </motion.div>
 

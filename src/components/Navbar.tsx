@@ -59,9 +59,15 @@ export default function Navbar() {
           ))}
         </div>
 
-        <button className="hidden lg:flex items-center gap-2 bg-[#2F6BFF] text-white text-[13px] font-semibold px-8 xl:px-10 py-3.5 xl:py-4 rounded-full hover:bg-[#111111] transition-colors ml-6 xl:ml-8 shrink-0">
+        {/* Desktop Connect Button */}
+        <a
+          href="https://mail.google.com/mail/?view=cm&fs=1&to=connect@firstpective.co.id"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="hidden lg:inline-flex items-center justify-center bg-[#2F6BFF] text-white text-[13px] font-semibold px-8 xl:px-10 py-3.5 xl:py-4 rounded-full hover:bg-[#111111] transition-colors ml-6 xl:ml-8 shrink-0 cursor-pointer"
+        >
           Connect
-        </button>
+        </a>
 
         {/* Mobile / tablet hamburger */}
         <button
@@ -96,9 +102,15 @@ export default function Navbar() {
                 {item}
               </a>
             ))}
-            <button className="mt-4 bg-[#2F6BFF] text-white text-[13px] font-semibold px-5 py-3.5 rounded-full w-full hover:bg-[#111111] transition-colors">
-              Connect
-            </button>
+            {/* Mobile Connect Button */}
+            <a
+            href="https://mail.google.com/mail/?view=cm&fs=1&to=connect@firstpective.co.id"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="hidden lg:inline-flex items-center justify-center bg-[#2F6BFF] text-white text-[13px] font-semibold px-8 xl:px-10 py-3.5 xl:py-4 rounded-full hover:bg-[#111111] transition-colors ml-6 xl:ml-8 shrink-0 cursor-pointer"
+          >
+            Connect
+          </a>
           </div>
         </div>
       )}

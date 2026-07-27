@@ -2,6 +2,8 @@ import { motion } from 'framer-motion'
 import CountUp from 'react-countup'
 import aiVideo from '../assets/ai/Vid AI_Fin_2.mp4'
 
+const WA_NUMBER = '6281291578589'
+
 const showcaseStats = [
   { value: 70, suffix: '%', label: 'Cost reduction vs traditional\nvideo production' },
   { value: 10, suffix: 'x', label: 'More content variations\nfrom a single brief' },
@@ -51,13 +53,16 @@ export default function Showcase() {
           <p className="text-[13px] sm:text-[14px] text-[#333333] leading-[1.6] max-w-[460px] font-medium">
             AI video production doesn't replace brand thinking — it amplifies it. We produce manifesto videos, company profiles, internal communications, and campaign content using AI-powered workflows that cut production time and cost without cutting brand integrity. Every output is tested through Simsami before it goes live.
           </p>
-          <motion.button
+          <motion.a
+            href={`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent('Halo, saya ingin mendiskusikan project baru.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
             className="self-stretch sm:self-start bg-[#2F6BFF] text-white text-[13px] sm:text-[14px] font-semibold px-8 sm:px-10 py-3.5 sm:py-4 rounded-full transition-colors mt-1 sm:mt-2"
             whileHover={{ scale: 1.05, backgroundColor: '#1a55e8' }}
             whileTap={{ scale: 0.95 }}
           >
             Start a Project
-          </motion.button>
+          </motion.a>
         </div>
 
         {/* Right Side */}

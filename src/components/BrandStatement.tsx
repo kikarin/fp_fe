@@ -89,13 +89,15 @@ export default function BrandStatement() {
                 ))}
               </div>
 
-              <motion.button
+              <motion.a
+                href={`https://simsami.com`}
+                rel="noopener noreferrer"
                 className="bg-white text-[#111111] text-[12px] sm:text-[13px] font-semibold py-3 px-6 sm:px-8 rounded-full transition-colors w-full sm:w-auto"
                 whileHover={{ scale: 1.05, backgroundColor: '#f9fafb' }}
                 whileTap={{ scale: 0.95 }}
               >
                 Start Simulation
-              </motion.button>
+              </motion.a>
             </div>
           </div>
         </motion.div>
