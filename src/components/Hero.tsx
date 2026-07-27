@@ -89,7 +89,7 @@ export default function Hero() {
             >
               <span className="pb-1 sm:pb-2 text-[36px] sm:text-[48px] md:text-[60px] lg:text-[72px] font-semibold leading-none tracking-tight">
                 {stat.prefix}
-                <CountUp end={stat.value} duration={2.5} separator="," enableScrollSpy scrollSpyOnce />
+                <CountUp end={stat.value} duration={2.5} separator="" enableScrollSpy scrollSpyOnce />
                 {stat.suffix}
               </span>
               <p className="pt-2 sm:pt-4 md:pt-6 text-[10px] sm:text-[11px] md:text-[12px] font-semibold leading-[1.4]">
