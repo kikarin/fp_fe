@@ -106,7 +106,6 @@ export default function Services() {
   })
 
   const y = useTransform(scrollYProgress, [0, 1], [-400, 200])
-  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.1])
 
   useEffect(() => {
     let active = true
@@ -129,7 +128,7 @@ export default function Services() {
       className="relative py-16 sm:py-20 md:py-24 lg:py-28 overflow-hidden bg-[#7895B2]"
     >
       <motion.div
-        style={{ y, scale }}
+        style={{ y }}
         className="absolute inset-0 pointer-events-none"
       >
         <img

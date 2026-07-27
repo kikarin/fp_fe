@@ -63,25 +63,3 @@ body {
   }
 }
 
-/* Service card zoom — scale seluruh card + background */
-.service-card {
-  transform: scale(1);
-  transition: transform 0.5s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: transform;
-}
-
-.service-card:hover {
-  transform: scale(1.04);
-}
-
-.service-card-bg {
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-  transition: background-size 0.85s cubic-bezier(0.22, 1, 0.36, 1);
-  will-change: background-size;
-}
-
-.service-card:hover .service-card-bg {
-  background-size: 125% 125%;
-}
