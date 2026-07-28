@@ -53,6 +53,8 @@ function LogoGrid({
                 <img
                   src={logo.src}
                   alt={logo.name}
+                  loading="lazy"
+                  decoding="async"
                   style={{ width: `${logo.width}px` }}
                   className="max-w-[75%] sm:max-w-[85%] md:max-w-none max-h-10 sm:max-h-14 md:max-h-16 w-auto object-contain"
                 />

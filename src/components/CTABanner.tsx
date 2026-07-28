@@ -23,6 +23,8 @@ export default function CTABanner() {
         <img
           src={bgCTA}
           alt=""
+          loading="lazy"
+          decoding="async"
           className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[600px] md:w-[1000px] lg:w-[1800px] max-w-none pointer-events-none select-none"
         />
       </motion.div>

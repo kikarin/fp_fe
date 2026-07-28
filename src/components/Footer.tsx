@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Headset, Mail } from 'lucide-react'
 import logo from '../assets/logo/Logo_white.png'
 import logoFuturist from '../assets/logo/Logo_3.png'
+import { legalRoutes } from '../config/site'
 
 export default function Footer() {
   return (
@@ -20,7 +22,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <img src={logo} alt="FirstPective" className="h-7 sm:h-8 object-contain object-left mb-1 sm:mb-2" />
+          <img src={logo} alt="FirstPective" loading="lazy" decoding="async" className="h-7 sm:h-8 object-contain object-left mb-1 sm:mb-2" />
           <p className="text-[12px] sm:text-[13px] text-white/60 leading-[1.6] max-w-[280px]">
             Fresh Perspective to stay relevant.
             <br />
@@ -29,7 +31,7 @@ export default function Footer() {
 
           <div className="mt-4 sm:mt-8 flex flex-col gap-3">
             <span className="text-[12px] text-white/40">Part of :</span>
-            <img src={logoFuturist} alt="Futurist" className="h-9 sm:h-10 object-contain object-left" />
+            <img src={logoFuturist} alt="Futurist" loading="lazy" decoding="async" className="h-9 sm:h-10 object-contain object-left" />
             <span className="text-[10px] sm:text-[11px] text-white/50 tracking-wide">
               PT FUTURIST CIRCLE INDONESIA
             </span>
@@ -39,7 +41,7 @@ export default function Footer() {
 
         {/* Col 2: Solution */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h4 className="text-[15px] sm:text-[16px] font-semibold text-white mb-4 sm:mb-6">Solution</h4>
+          <h3 className="text-[15px] sm:text-[16px] font-semibold text-white mb-4 sm:mb-6">Solution</h3>
           <ul className="flex flex-col gap-3 sm:gap-4">
             {['Video Production', 'Brand & Marketing', 'Corporate Report', 'Internal Communications'].map((item) => (
               <li key={item}>
@@ -53,20 +55,21 @@ export default function Footer() {
 
         {/* Col 3: Company */}
         <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-          <h4 className="text-[15px] sm:text-[16px] font-semibold text-white mb-4 sm:mb-6">Company</h4>
+          <h3 className="text-[15px] sm:text-[16px] font-semibold text-white mb-4 sm:mb-6">Company</h3>
           <ul className="flex flex-col gap-3 sm:gap-4">
             {[
-              { label: 'About Us', href: '#about us' },
-              { label: 'AI Video', href: '#ai video' },
-              { label: 'AI Creative Boost', href: '#ai creative boost' },
-              { label: 'Solutions', href: '#solutions' },
-              { label: 'Works', href: '#work' },
-              { label: 'FAQ', href: '#faq' }
+              { label: 'About Us', href: '/about' },
+              { label: 'AI Video', href: '/#ai video' },
+              { label: 'AI Creative Boost', href: '/#ai creative boost' },
+              { label: 'Solutions', href: '/#solutions' },
+              { label: 'Works', href: '/#work' },
+              { label: 'FAQ', href: '/#faq' },
+              { label: 'Contact', href: '/contact' },
             ].map((item) => (
               <li key={item.label}>
-                <a href={item.href} className="text-[12px] sm:text-[13px] text-white/60 hover:text-white transition-colors">
+                <Link to={item.href} className="text-[12px] sm:text-[13px] text-white/60 hover:text-white transition-colors">
                   {item.label}
-                </a>
+                </Link>
               </li>
             ))}
           </ul>
@@ -79,7 +82,7 @@ export default function Footer() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h4 className="text-[15px] sm:text-[16px] font-semibold text-white mb-4 sm:mb-6">General Inquiry</h4>
+          <h3 className="text-[15px] sm:text-[16px] font-semibold text-white mb-4 sm:mb-6">General Inquiry</h3>
           <ul className="flex flex-col gap-4 sm:gap-5 mb-6 sm:mb-8">
             <li className="flex items-center gap-3">
               <Headset size={18} className="text-white/60 shrink-0" />
@@ -129,6 +132,18 @@ export default function Footer() {
           </ul>
         </motion.div>
       </motion.div>
+
+      <div className="page-container border-t border-white/10 pt-8 flex flex-wrap gap-x-5 gap-y-2 justify-center sm:justify-start">
+        {legalRoutes.map((item) => (
+          <Link
+            key={item.path}
+            to={item.path}
+            className="text-[11px] sm:text-[12px] text-white/55 hover:text-white/80 transition-colors"
+          >
+            {item.label}
+          </Link>
+        ))}
+      </div>
     </footer>
   )
 }

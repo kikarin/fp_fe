@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Logo from '../assets/logo/Logo_1.png'
 
 const navItems = ['About Us', 'AI Video', 'AI Creative Boost', 'Solutions', 'Work', 'FAQ']
@@ -30,34 +31,36 @@ export default function Navbar() {
   }, [open])
 
   return (
-    <nav
+    <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled || open ? 'bg-white/80 backdrop-blur-[3px]' : 'bg-transparent'
       }`}
     >
+      <a href="#main-content" className="skip-link">
+        Skip to content
+      </a>
       <div
         className={`page-container flex items-center transition-all duration-300 ${
           scrolled ? 'py-3 sm:py-4' : 'py-5 sm:py-6 md:py-8'
         }`}
       >
-        <a href="#about us" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
-          <img src={Logo} alt="FirstPective" className="w-32 sm:w-36 md:w-40 h-auto" />
-        </a>
+        <Link to="/" className="flex items-center gap-2 shrink-0" onClick={() => setOpen(false)}>
+          <img src={Logo} alt="FirstPective" decoding="async" className="w-32 sm:w-36 md:w-40 h-auto" />
+        </Link>
 
         <div className="flex-grow" />
 
-        {/* Desktop links — lg+ agar md tidak overflow */}
-        <div className="hidden lg:flex items-center gap-5 xl:gap-8">
+        <nav className="hidden lg:flex items-center gap-5 xl:gap-8" aria-label="Primary">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item}
-              href={`#${item.toLowerCase()}`}
+              to={`/#${item.toLowerCase()}`}
               className="text-[13px] xl:text-[14px] text-[#444444] hover:text-[#111111] transition-colors font-medium whitespace-nowrap"
             >
               {item}
-            </a>
+            </Link>
           ))}
-        </div>
+        </nav>
 
         {/* Desktop Connect Button */}
         <a
@@ -90,17 +93,17 @@ export default function Navbar() {
 
       {/* Mobile / tablet menu */}
       {open && (
-        <div className="lg:hidden border-t border-[#EEEEEE] bg-white max-h-[calc(100svh-4rem)] overflow-y-auto">
+        <nav className="lg:hidden border-t border-[#EEEEEE] bg-white max-h-[calc(100svh-4rem)] overflow-y-auto" aria-label="Primary mobile">
           <div className="page-container pb-6 pt-4 flex flex-col gap-1">
             {navItems.map((item) => (
-              <a
+              <Link
                 key={item}
-                href={`#${item.toLowerCase()}`}
+                to={`/#${item.toLowerCase()}`}
                 className="text-[15px] sm:text-[16px] text-[#111111] font-medium py-3 border-b border-[#F0F0F0]"
                 onClick={() => setOpen(false)}
               >
                 {item}
-              </a>
+              </Link>
             ))}
             {/* Mobile Connect Button */}
             <a
@@ -112,8 +115,8 @@ export default function Navbar() {
             Connect
           </a>
           </div>
-        </div>
+        </nav>
       )}
-    </nav>
+    </header>
   )
 }

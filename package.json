@@ -33,6 +33,7 @@
         "lucide-react": "^1.24.0",
         "react-countup": "^6.5.3",
         "react-fast-marquee": "^1.6.5",
-        "react-hook-form": "^7.81.0"
+        "react-hook-form": "^7.81.0",
+        "react-router-dom": "^7.18.1"
     }
 }

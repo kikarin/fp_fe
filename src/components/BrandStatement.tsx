@@ -57,7 +57,7 @@ export default function BrandStatement() {
 
             <div className="relative z-10 flex flex-col items-center w-full">
               <div className="flex items-center gap-3 mb-2">
-                <img src={logo6} alt="Simsami Logo" className="h-7 sm:h-8 object-contain" />
+                <img src={logo6} alt="Simsami Logo" loading="lazy" decoding="async" className="h-7 sm:h-8 object-contain" />
               </div>
 
               <p className="text-[15px] sm:text-[16px] md:text-[17px] text-[#1B6CED] font-semibold text-center mb-6 sm:mb-8">
@@ -67,7 +67,7 @@ export default function BrandStatement() {
               </p>
 
               <div className="w-36 sm:w-44 md:w-48 mb-6 sm:mb-8 flex justify-center">
-                <img src={iconSimsami} alt="Speed Simulation" className="w-full object-contain" />
+                <img src={iconSimsami} alt="Speed Simulation" loading="lazy" decoding="async" className="w-full object-contain" />
               </div>
 
               <p className="text-[12px] sm:text-[13px] text-[#111111] font-semibold text-center leading-[1.5] mb-6 sm:mb-8 px-1">

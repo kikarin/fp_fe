@@ -20,7 +20,10 @@ export default function Hero() {
     <section id="about us" className="relative min-h-screen flex overflow-hidden pt-24 sm:pt-28 md:pt-32">
       <motion.img
         src={Background}
-        alt="Background"
+        alt=""
+        aria-hidden="true"
+        fetchPriority="high"
+        decoding="async"
         style={{ y, scale }}
         className="
             absolute

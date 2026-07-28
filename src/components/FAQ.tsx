@@ -49,16 +49,20 @@ const fallbackFaqs: FaqItem[] = [
 ]
 
 function FAQItem({
+  id,
   q,
   a,
   isOpen,
   onToggle,
 }: {
+  id: number
   q: string
   a: string
   isOpen: boolean
   onToggle: () => void
 }) {
+  const panelId = `faq-panel-${id}`
+
   return (
     <motion.div
       className="border border-[#EEEEEE] rounded-[12px] sm:rounded-[16px] overflow-hidden bg-white"
@@ -68,8 +72,11 @@ function FAQItem({
       transition={{ duration: 0.5 }}
     >
       <button
+        type="button"
         className="w-full flex items-center justify-between px-4 sm:px-5 md:px-6 py-4 sm:py-5 text-left gap-3 sm:gap-4"
         onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={panelId}
       >
         <span className="text-[13px] sm:text-[14px] md:text-[15px] font-semibold text-[#111111] leading-[1.4]">
           {q}
@@ -78,6 +85,7 @@ function FAQItem({
           className="flex-shrink-0 w-6 h-6 sm:w-7 sm:h-7 rounded-full border border-[#E0E0E0] flex items-center justify-center text-[#111]"
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.3 }}
+          aria-hidden="true"
         >
           <ChevronDown size={14} strokeWidth={2.5} />
         </motion.span>
@@ -85,6 +93,9 @@ function FAQItem({
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            id={panelId}
+            role="region"
+            aria-label={q}
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -118,7 +129,7 @@ export default function FAQ() {
   }, [])
 
   return (
-    <section id="faq" className="py-16 sm:py-20 md:py-24 bg-[#F9F9F9] border-y border-[#EEEEEE]">
+    <section id="faq" className="py-16 sm:py-20 md:py-24 bg-[#F9F9F9] border-y border-[#EEEEEE]" aria-labelledby="faq-heading">
       <div className="page-container">
         <motion.div
           className="mb-8 sm:mb-10 md:mb-12"
@@ -130,7 +141,7 @@ export default function FAQ() {
           <span className="text-[11px] sm:text-[12px] font-semibold tracking-[0.15em] text-[#2F6BFF] uppercase">
             FAQ
           </span>
-          <h2 className="text-[26px] sm:text-[32px] md:text-[40px] font-bold text-[#111111] mt-2 leading-[1.2] tracking-tight">
+          <h2 id="faq-heading" className="text-[26px] sm:text-[32px] md:text-[40px] font-bold text-[#111111] mt-2 leading-[1.2] tracking-tight">
             Frequently Asked Questions
             <br />
             <span className="text-[#2F6BFF]">About Firstpective</span>
@@ -140,6 +151,7 @@ export default function FAQ() {
           {faqs.map((item, i) => (
             <FAQItem
               key={item.id}
+              id={item.id}
               q={item.question}
               a={item.answer}
               isOpen={openIndex === i}

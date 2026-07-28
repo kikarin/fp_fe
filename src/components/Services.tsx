@@ -134,6 +134,8 @@ export default function Services() {
         <img
           src={background}
           alt=""
+          loading="lazy"
+          decoding="async"
           className="absolute left-1/2 top-1/2 -translate-x-[50%] -translate-y-[50%] w-[1400px] sm:w-[1200px] md:w-[1550px] max-w-none pointer-events-none select-none rotate-90 opacity-80"
         />
       </motion.div>

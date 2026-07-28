@@ -23,6 +23,7 @@ export default function Showcase() {
         loop
         muted
         playsInline
+        aria-hidden="true"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
